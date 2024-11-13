@@ -1,0 +1,50 @@
+{% load static  %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+    <div class="logo"><a href="#"> <img src="{% static 'assets/logo.png' %}" alt="Hamro Bhansa Logo">
+            Django Auth</a></div>
+        <div class="form-box" id="formbox">
+            <div class="btn-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn"><a id="span-login" href="{% url 'login' %}">Login</a></button>
+                <button type="button" class="toggle-btn"><a id="span-signup" href="{% url 'register' %}">Register</a></button>
+            </div>
+
+
+            <form action="" id="form-login" class="input-group" method="POST">
+            {% csrf_token %}
+                <input type="email" class="input-field" placeholder="Email" name="email" required><br><br>
+                <input type="password" class="input-field" placeholder="Password" name="password" required><br><br>
+                <input type="checkbox" class="checkbox"><span id="remember-me">Remember Me</span>
+                <span id="forget-password"> <a href="{% url 'password_reset' %}">Forget Password?</a></span>
+
+                <button type="submit" class="submit-btn"><span id="span-color">Login</span></button>
+                <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+            </form>
+
+
+        </div>
+    </div>
+    <script>
+      {% if messages%} 
+        {% for message in messages %}
+          alertify.set('notifier','position', 'top-right');
+          alertify.success('{{message}}');
+        {% endfor %}
+      {% endif %} 
+    </script>
+</body>
+</html>
